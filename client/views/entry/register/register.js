@@ -1,4 +1,4 @@
-Template.entry.events({
+Template.register.events({
   'submit form': function(event){
     event.preventDefault();
 
@@ -6,9 +6,9 @@ Template.entry.events({
         password = $("#password").val();
 
     if(email && password){
-    Meteor.loginWithPassword(email, password, function(error){
+      Accounts.createUser({email: email, password:password}, function(error){
       if(error){
-        bootbox.alert("Sorry, we couldn't find that email or password");
+        bootbox.alert("Sorry, please try a better email or password");
       } else {
         Router.go("campaign.select");
       }
